@@ -1,4 +1,4 @@
-//import model.Graph;
+import model.Graph;
 import util.LoadData;
 
 import javax.xml.transform.Source;
@@ -11,28 +11,26 @@ public class AppMatriz {
         GraphMatriz graphMatriz;
 
         graphMatriz = LoadData.loadAdj("data/data.txt");
-        int[][] pi = graphMatriz.mat;
-        GraphMatriz.genPI(graphMatriz.mat, pi);
-        System.out.println("Matriz:");
-        System.out.println(graphMatriz);
-
-        // Graph lisGraph = LoadData.loadList("data/data.txt");
-
-        // System.out.println("Lista:");
-        // System.out.println(lisGraph);
-        // System.out.println();
-
-
-
-        graphMatriz.editMatrix(graphMatriz.mat);
-        System.out.println();
+        int[][] pi = graphMatriz.mat;        
+        System.out.println("Matriz original:");
         System.out.println(graphMatriz);
         
-        FloydW.floydW(graphMatriz.mat, pi);
-        System.out.println("-----Matriz PI-------");
-        printMatrix(pi);
+        //gerando matriz de custos (D)
+        graphMatriz.editMatrix(graphMatriz.mat);
 
-       
+        System.out.println("--------------------");
+        System.out.println("Matriz de custos:");
+        System.out.println(graphMatriz);         
+
+        System.out.println("--------------------");
+        //gerando matriz de antecessores (PI)
+        GraphMatriz.genPI(graphMatriz.mat, pi);
+         
+        
+        FloydW.floydW(graphMatriz.mat, pi);
+        System.out.println("Matriz de antecessores:");
+        //printMatrix(pi);
+        System.out.println(graphMatriz);      
     }
 
     public static void printMatrix(int x[][]){
